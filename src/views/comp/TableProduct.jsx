@@ -9,12 +9,15 @@ const TableProduct = () => {
         {nama: "Darsini", pekerjaan:"Sinden"}
     ]
     const DataOrang = ()=>{
-        
-        for (let i = 0; i < arrData.length; i++) {
-            hasil += i+1 + arrData[i].nama + arrData[i].pekerjaan
-
-        }
-        return hasil
+        return arrData.map((val, index) => {
+            return (
+                <tr>
+                    <td>{index +1}</td>
+                    <td>{val.nama}</td>
+                    <td>{val.pekerjaan}</td>
+                </tr>
+            )
+        })
     }
     return (
         <div>
@@ -27,9 +30,7 @@ const TableProduct = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{DataOrang()}</td>
-                    </tr>
+                    {DataOrang()}
                 </tbody>
             </table>
         </div>
