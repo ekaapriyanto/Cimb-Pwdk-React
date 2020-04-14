@@ -8,6 +8,8 @@ import handmaid from './views/image/handmaid.png';
 import './App.css';
 import './bootstrap.css';
 import ProductCard from './views/comp/ProdactCard';
+import CounterScreen from './views/screen/CounterScreen';
+import InputScreen from './views/screen/inputScreen';
 function App() {
 
   let arrProduct = [
@@ -61,11 +63,13 @@ function App() {
   return (
     <div className="App">
       <img src={LogoBrand} width='200px' height='80px'/>
-      <div className="container">
+      <InputScreen />
+      {/* <CounterScreen /> */}
+      {/* <div className="container">
       <div className="row p-1">
         {renderProduct()}
       </div>
-      </div>
+      </div> */}
     </div>
   )}
   export default App;
