@@ -1,6 +1,9 @@
 import React from 'react';
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+
 import logo from './logo.svg';
-import LogoBrand from './views/image/LogoBrand.png'
+import LogoBrand from './views/image/LogoBrand.png';
+import home from './views/image/home.png'
 import brave from './views/image/brave.png';
 import crazyRich from './views/image/crazyRich.png';
 import educated from './views/image/educated.png';
@@ -9,8 +12,21 @@ import './App.css';
 import './bootstrap.css';
 import ProductCard from './views/comp/ProdactCard';
 import CounterScreen from './views/screen/CounterScreen';
-import InputScreen from './views/screen/inputScreen';
+import register from './views/screen/register';
+import LifecycleScreen from './views/screen/LifecycleScreen';
+import HomeScreen from './views/screen/HomeScreen';
+import PageNotFound from './views/screen/PageNotFound';
+import Navbar from './views/comp/Navbar';
+import ProfileScreen from './views/screen/ProfileScreen';
+import Register from './views/screen/register';
+import InputScreen from './views/screen/InputScreen';
+import WeekNavbar from './views/Weekend/WeekNavbar';
+import WeekHome from './views/Weekend/WeekHome';
+import WeekLogin from './views/Weekend/WeekLogin';
+import WeekRegister from './views/Weekend/WeekRegister';
+import WeekProfil from './views/Weekend/WeekProfile';
 function App() {
+  
 
   let arrProduct = [
     {
@@ -61,15 +77,34 @@ function App() {
     })
   }
   return (
-    <div className="App">
-      <img src={LogoBrand} width='200px' height='80px'/>
-      <InputScreen />
-      {/* <CounterScreen /> */}
-      {/* <div className="container">
-      <div className="row p-1">
-        {renderProduct()}
-      </div>
-      </div> */}
-    </div>
+    // <div className="App">
+    //   <img src={LogoBrand} width='200px' height='80px'/>
+    //   {/* <LifecycleScreen /> */}
+    //   {/* <InputScreen /> */}
+    //   {/* <CounterScreen /> */}
+    //   {/* <div className="container">
+    //   <div className="row p-1">
+    //     {renderProduct()}
+    //   </div>
+    //   </div> */}
+    // </div>
+
+    <>
+    <WeekNavbar />
+      <Switch>
+        {/* <Route exact path="/" component={HomeScreen} />
+        <Route exact path="/lcs" component={LifecycleScreen} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/cs" component={CounterScreen} />
+        <Route exact path="/inputsc" component={InputScreen} />
+        <Route exact path="/profile/:username" component={ProfileScreen} />
+        <Route path="*" component={PageNotFound}/> */}
+        <Route exact path="/" component={WeekHome} />
+        <Route exact path="/login" component={WeekLogin} />
+        <Route exact path="/register" component={WeekRegister} />
+        <Route exact path="/profile/:username" component={WeekProfil} />
+        <Route path="*" component={PageNotFound}/>
+      </Switch>
+      </>
   )}
-  export default App;
+  export default withRouter(App);

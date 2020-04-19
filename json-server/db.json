@@ -1,0 +1,48 @@
+{
+  "posts": [],
+  "comments": [],
+  "user": [
+    {
+      "id": 1,
+      "username": "eka",
+      "password": "password",
+      "role": "user",
+      "fullName": "Eka Apriyanto"
+    },
+    {
+      "id": 2,
+      "username": "lala",
+      "password": "password",
+      "role": "user",
+      "fullName": "Lala Atila"
+    },
+    {
+      "username": "bill",
+      "password": "12345",
+      "role": "admin",
+      "fullName": "Bill labong",
+      "id": 3
+    },
+    {
+      "username": "puspita",
+      "password": "1234567",
+      "role": "admin",
+      "fullName": "puspita mahesti",
+      "id": 4
+    },
+    {
+      "username": "ayu",
+      "password": "123",
+      "role": "admin",
+      "fullName": "puspita ayu",
+      "id": 5
+    },
+    {
+      "username": "mantap",
+      "password": "5555",
+      "role": "admin",
+      "fullName": "mantap bosque",
+      "id": 6
+    }
+  ]
+}
