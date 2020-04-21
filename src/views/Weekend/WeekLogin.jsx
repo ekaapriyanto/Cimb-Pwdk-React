@@ -2,36 +2,38 @@ import React from "react"
 import Axios from "axios"
 import {Redirect} from "react-router-dom"
 import {API_URL} from "../../constants/API"
+import {connect} from "react-redux";
+import {onClickLogin} from "../../redux/action"
+import swal from "sweetalert"
 
 class WeekLogin extends React.Component {
 
     state = {
         username: "",
         password: "",
-        isLoggedIn: false
+        isLoggedIn: false,
     }
 
     inputHandler = (e, field) => {
-        this.setState({ [field]: e.target.value });
+        const {value} =e.target;
+        this.setState({ [field]: value });
     };
 
-    getData = () => {
+    getDataLogin = () => {
         const {username, password} = this.state
 
         Axios.get(`${API_URL}/user`, {
             params: {
-                username: username,
-                password: password
+                username,
+                password,
             }
         })
         .then((res) => {
-            if (res.data.length >= 1){
-                return (
+            if (res.data.length > 0){
                     this.setState({isLoggedIn: true})
-                )
-                
+                    this.props.onClickLogin(username)
             } else {
-                alert("username/password salah")
+                swal("username/password salah")
             }
         })
         .catch((err) => {
@@ -62,7 +64,7 @@ class WeekLogin extends React.Component {
                         className="btn btn-primary mt-3"
                         type="button"
                         value="Login"
-                        onClick={this.getData}
+                        onClick={this.getDataLogin}
                     />
                     
                 </div>
@@ -75,4 +77,9 @@ class WeekLogin extends React.Component {
         }
     }
 }
-export default WeekLogin;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.username,
+    };
+};
+export default connect(mapStateToProps, {onClickLogin})(WeekLogin);

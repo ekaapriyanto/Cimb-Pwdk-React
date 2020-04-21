@@ -25,6 +25,7 @@ import WeekHome from './views/Weekend/WeekHome';
 import WeekLogin from './views/Weekend/WeekLogin';
 import WeekRegister from './views/Weekend/WeekRegister';
 import WeekProfil from './views/Weekend/WeekProfile';
+import TodoRedux from './views/screen/TodoRedux';
 function App() {
   
 
@@ -103,6 +104,7 @@ function App() {
         <Route exact path="/login" component={WeekLogin} />
         <Route exact path="/register" component={WeekRegister} />
         <Route exact path="/profile/:username" component={WeekProfil} />
+        <Route exact path="/todoredux" component={TodoRedux} />
         <Route path="*" component={PageNotFound}/>
       </Switch>
       </>

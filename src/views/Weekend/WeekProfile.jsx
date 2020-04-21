@@ -2,6 +2,7 @@ import React from "react"
 import Axios from "axios"
 import {API_URL} from "../../constants/API"
 import user1 from "../image/user1.png"
+import {connect} from "react-redux"
 
 class WeekProfil extends React.Component {
     state = {
@@ -34,7 +35,8 @@ class WeekProfil extends React.Component {
         let profil = user1
         const {user, status, namaLengkap} = this.state
         return (
-            <div className="card p-5">
+            <div className="card p-5 text-center">
+                <h1>{this.props.cantik} {user}</h1>
                 <div className="row">
                     <div className="col-5 text-center">
                         <img src={profil} width="100px"/>
@@ -49,4 +51,10 @@ class WeekProfil extends React.Component {
         )
     }
 }
-export default WeekProfil;
+
+const mapStateToProps = (state) => {
+    return {
+        cantik: state.haha.todoInput,
+    }
+}
+export default connect(mapStateToProps)(WeekProfil);
