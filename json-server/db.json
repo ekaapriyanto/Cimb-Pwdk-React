@@ -64,6 +64,13 @@
       "role": "admin",
       "fullName": "raga sukma",
       "id": 9
+    },
+    {
+      "username": "mantul",
+      "password": "anjay",
+      "role": "admin",
+      "fullName": "mantap betul",
+      "id": 10
     }
   ]
 }

@@ -14,7 +14,6 @@ class WeekRegister extends React.Component {
         repassword: "",
         role: "",
         fullName: "",
-        isLoading: false,
     }
 
     inputHandler = (e, field) => {
@@ -28,7 +27,7 @@ class WeekRegister extends React.Component {
 
         this.setState({isLoading: true});
 
-        setTimeout(() => {
+        // setTimeout(() => {
             const userData = {
                 username, password, fullName, role, repassword,
             }
@@ -62,7 +61,7 @@ class WeekRegister extends React.Component {
             //     console.log("Error", err)
             //     this.setState({isLoading: false})
             // })
-        }, 1500)
+        // }, 1500)
     }
     render() {
         // const {username, password, repassword, role, fullName} = this.state
@@ -110,7 +109,6 @@ class WeekRegister extends React.Component {
                         type="button"
                         value="Sign In"
                         onClick={this.postDataRegistrasi}
-                        disabled={this.state.isLoading}
                     />
                 </div>
             </div>

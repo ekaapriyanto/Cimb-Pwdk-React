@@ -32,27 +32,31 @@ export const registerHandler = (userDataRegister) => {
             }
         })
         .then((res) => {
-            if (password == repassword) {
-                if (res.data.length == 0) {
-                    Axios.post(`${API_URL}/user`, newUser)
-                    .then((res) => {
-                        swal("Akun anda telah terdaftar");
-                        dispatc({
-                            type: "ON_LOGIN_SUCCES",
-                            payload: res.data
-                        })
-                        // this.setState({isLoading: false});
-                    })
-                    .catch((err) => {
-                        swal("Terjadi kesalahan pada server");
-                        // this.setState({isLoading: false});
-                    })
-                } else {
-                    swal("Username: " + username + " sudah ada");
-                    // this.setState({isLoading: false});
-                }
+            if (username == 0 || password == 0 || repassword == 0 || role == 0 || fullName == 0){
+                swal("Data anda tidak lengkap!")
             } else {
-                swal("password tidak sama")
+                if (password == repassword) {
+                    if (res.data.length == 0) {
+                        Axios.post(`${API_URL}/user`, newUser)
+                        .then((res) => {
+                            swal("Akun anda telah terdaftar");
+                            dispatc({
+                                type: "ON_LOGIN_SUCCES",
+                                payload: res.data
+                            })
+                            // this.setState({isLoading: false});
+                        })
+                        .catch((err) => {
+                            swal("Terjadi kesalahan pada server");
+                            // this.setState({isLoading: false});
+                        })
+                    } else {
+                        swal("Username: " + username + " sudah ada");
+                        // this.setState({isLoading: false});
+                    }
+                } else {
+                    swal("password tidak sama")
+                }
             }
         })
         .catch((err) => {
