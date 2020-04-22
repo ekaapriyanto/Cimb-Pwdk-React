@@ -3,7 +3,7 @@ import Axios from "axios"
 import {Redirect} from "react-router-dom"
 import {API_URL} from "../../constants/API"
 import {connect} from "react-redux";
-import {onClickLogin} from "../../redux/action"
+import {onClickLogin, loginHandler} from "../../redux/action"
 import swal from "sweetalert"
 
 class WeekLogin extends React.Component {
@@ -22,30 +22,39 @@ class WeekLogin extends React.Component {
     getDataLogin = () => {
         const {username, password} = this.state
 
-        Axios.get(`${API_URL}/user`, {
-            params: {
-                username,
-                password,
-            }
-        })
-        .then((res) => {
-            if (res.data.length > 0){
-                    this.setState({isLoggedIn: true})
-                    this.props.onClickLogin(username)
-            } else {
-                swal("username/password salah")
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+        const userData = {
+            username,
+            password,
+        }
+
+        this.props.onLogin(userData)
+
+        // Axios.get(`${API_URL}/user`, {
+        //     params: {
+        //         username,
+        //         password,
+        //     }
+        // })
+        // .then((res) => {
+        //     if (res.data.length > 0){
+        //             this.setState({isLoggedIn: true})
+        //             this.props.onClickLogin(username)
+        //     } else {
+        //         swal("username/password salah")
+        //     }
+        // })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
     }
     render(){
         const {username, password, isLoggedIn} = this.state
         if (!isLoggedIn) {
             return(
-                <div className="card p-5" style={{width: "400px"}}>
+                <div className="container d-flex justify-content-center">
+                    <div className="card p-5" style={{width: "400px"}}>
                     <h4>Login</h4>
+                    <p>username: {this.props.user.username}</p>
                     <input
                         className="form-control mt-2"
                         type="text"
@@ -66,7 +75,8 @@ class WeekLogin extends React.Component {
                         value="Login"
                         onClick={this.getDataLogin}
                     />
-                    
+                    <p className="text-warning">{this.props.user.errMsg}</p>
+                </div>
                 </div>
             )
         }
@@ -79,7 +89,10 @@ class WeekLogin extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        user: state.user.username,
+        user: state.user,
     };
 };
-export default connect(mapStateToProps, {onClickLogin})(WeekLogin);
+const mapDispatchToProps = {
+    onLogin: loginHandler
+}
+export default connect(mapStateToProps, mapDispatchToProps)(WeekLogin);

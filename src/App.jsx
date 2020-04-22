@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+import Cookie from "universal-cookie"
 
 import logo from './logo.svg';
 import LogoBrand from './views/image/LogoBrand.png';
@@ -26,10 +27,14 @@ import WeekLogin from './views/Weekend/WeekLogin';
 import WeekRegister from './views/Weekend/WeekRegister';
 import WeekProfil from './views/Weekend/WeekProfile';
 import TodoRedux from './views/screen/TodoRedux';
-function App() {
+import { render } from '@testing-library/react';
+
+const cookieObject = new Cookie();
+
+class App extends React.Component {
   
 
-  let arrProduct = [
+  arrProduct = [
     {
       author: "Margaret Atwood",
       title: "The handmaid's tale",
@@ -72,41 +77,44 @@ function App() {
     },
   ]
 
-  const renderProduct = () => {
-    return arrProduct.map((val) => {
+  renderProduct = () => {
+    return this.arrProduct.map((val) => {
       return <ProductCard productData={val} />
     })
   }
-  return (
-    // <div className="App">
-    //   <img src={LogoBrand} width='200px' height='80px'/>
-    //   {/* <LifecycleScreen /> */}
-    //   {/* <InputScreen /> */}
-    //   {/* <CounterScreen /> */}
-    //   {/* <div className="container">
-    //   <div className="row p-1">
-    //     {renderProduct()}
-    //   </div>
-    //   </div> */}
-    // </div>
-
-    <>
-    <WeekNavbar />
-      <Switch>
-        {/* <Route exact path="/" component={HomeScreen} />
-        <Route exact path="/lcs" component={LifecycleScreen} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/cs" component={CounterScreen} />
-        <Route exact path="/inputsc" component={InputScreen} />
-        <Route exact path="/profile/:username" component={ProfileScreen} />
-        <Route path="*" component={PageNotFound}/> */}
-        <Route exact path="/" component={WeekHome} />
-        <Route exact path="/login" component={WeekLogin} />
-        <Route exact path="/register" component={WeekRegister} />
-        <Route exact path="/profile/:username" component={WeekProfil} />
-        <Route exact path="/todoredux" component={TodoRedux} />
-        <Route path="*" component={PageNotFound}/>
-      </Switch>
-      </>
-  )}
+  render(){
+    return (
+      // <div className="App">
+      //   <img src={LogoBrand} width='200px' height='80px'/>
+      //   {/* <LifecycleScreen /> */}
+      //   {/* <InputScreen /> */}
+      //   {/* <CounterScreen /> */}
+      //   {/* <div className="container">
+      //   <div className="row p-1">
+      //     {renderProduct()}
+      //   </div>
+      //   </div> */}
+      // </div>
+  
+      <>
+      <WeekNavbar />
+        <Switch>
+          {/* <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/lcs" component={LifecycleScreen} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/cs" component={CounterScreen} />
+          <Route exact path="/inputsc" component={InputScreen} />
+          <Route exact path="/profile/:username" component={ProfileScreen} />
+          <Route path="*" component={PageNotFound}/> */}
+          <Route exact path="/" component={WeekHome} />
+          <Route exact path="/login" component={WeekLogin} />
+          <Route exact path="/register" component={WeekRegister} />
+          <Route exact path="/profile/:username" component={WeekProfil} />
+          <Route exact path="/todoredux" component={TodoRedux} />
+          <Route path="*" component={PageNotFound}/>
+        </Switch>
+        </>
+    )
+  }
+}
   export default withRouter(App);

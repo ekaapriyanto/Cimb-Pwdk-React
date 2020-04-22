@@ -57,6 +57,13 @@
       "password": "252525",
       "role": "admin",
       "id": 8
+    },
+    {
+      "username": "sukama",
+      "password": "ding",
+      "role": "admin",
+      "fullName": "raga sukma",
+      "id": 9
     }
   ]
 }

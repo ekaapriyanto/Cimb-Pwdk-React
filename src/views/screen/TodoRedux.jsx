@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {todoInputHandler, usernameInputHandler, addTodoHandler} from "../../redux/action";
+import {todoInputHandler, usernameInputHandler, addTodoHandler, loginHandler} from "../../redux/action";
 
 class TodoRedux extends React.Component {
     render() {
         return (
             <div className="container">
                 <h1>Todo Screen</h1>
-                <h2>{this.props.todo.todoInput}</h2>
+                {/* <h2>{this.props.todo.todoInput}</h2>
                 <input
                     type="text"
                     className="form-control"
@@ -22,7 +22,15 @@ class TodoRedux extends React.Component {
                 />
                 {this.props.todo.todoList.map((val) => {
                     return <p>{val}</p>;
-                })}
+                })} */}
+                <p>Testing 1: {this.props.user.testing1}</p>
+                <p>Testing 2: {this.props.user.testing2}</p>
+                <input
+                    type="button"
+                    value="Testing"
+                    className="btn btn-success"
+                    onClick={this.props.onLogin}
+                />
             </div>
         );
     };
@@ -30,7 +38,7 @@ class TodoRedux extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        todo: state.haha,
+        todo: state.todo,
         user: state.user,
     };
 };
@@ -38,5 +46,6 @@ const mapDispatcToProps = {
     onChangeTodo: todoInputHandler,
     onChangeUsername: usernameInputHandler,
     onAddTodo: addTodoHandler,
+    onLogin: loginHandler,
 };
 export default connect(mapStateToProps, mapDispatcToProps)(TodoRedux);

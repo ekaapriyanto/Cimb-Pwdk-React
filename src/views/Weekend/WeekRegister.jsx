@@ -3,6 +3,8 @@ import Axios from "axios";
 import swal from "sweetalert"
 import {API_URL} from "../../constants/API";
 import {spinner} from "reactstrap"
+import {connect} from "react-redux"
+import {registerHandler} from "../../redux/action"
 
 class WeekRegister extends React.Component {
 
@@ -22,40 +24,44 @@ class WeekRegister extends React.Component {
 
     postDataRegistrasi = () => {
         const { username, password, repassword, role, fullName} = this.state
-        let newUser = {username, fullName, password, role}
+        // let newUser = {username, fullName, password, role}
 
         this.setState({isLoading: true});
 
         setTimeout(() => {
-            Axios.get(`${API_URL}/user`,{
-                params: {
-                    username,
-                }
-            })
-            .then((res) => {
-                if (password == repassword) {
-                    if (res.data.length == 0) {
-                        Axios.post(`${API_URL}/user`, newUser)
-                        .then((res) => {
-                            swal("Akun anda telah terdaftar");
-                            this.setState({isLoading: false});
-                        })
-                        .catch((err) => {
-                            swal("Terjadi kesalahan pada server");
-                            this.setState({isLoading: false});
-                        })
-                    } else {
-                        swal("Username: " + username + " sudah ada");
-                        this.setState({isLoading: false});
-                    }
-                } else {
-                    swal("password tidak sama")
-                }
-            })
-            .catch((err) => {
-                console.log("Error", err)
-                this.setState({isLoading: false})
-            })
+            const userData = {
+                username, password, fullName, role, repassword,
+            }
+            this.props.onRegistrasi(userData)
+            // Axios.get(`${API_URL}/user`,{
+            //     params: {
+            //         username,
+            //     }
+            // })
+            // .then((res) => {
+            //     if (password == repassword) {
+            //         if (res.data.length == 0) {
+            //             Axios.post(`${API_URL}/user`, newUser)
+            //             .then((res) => {
+            //                 swal("Akun anda telah terdaftar");
+            //                 this.setState({isLoading: false});
+            //             })
+            //             .catch((err) => {
+            //                 swal("Terjadi kesalahan pada server");
+            //                 this.setState({isLoading: false});
+            //             })
+            //         } else {
+            //             swal("Username: " + username + " sudah ada");
+            //             this.setState({isLoading: false});
+            //         }
+            //     } else {
+            //         swal("password tidak sama")
+            //     }
+            // })
+            // .catch((err) => {
+            //     console.log("Error", err)
+            //     this.setState({isLoading: false})
+            // })
         }, 1500)
     }
     render() {
@@ -111,4 +117,13 @@ class WeekRegister extends React.Component {
         )
     }
 }
-export default WeekRegister;
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+const mapDispatcToProps = {
+    onRegistrasi: registerHandler
+}
+export default connect(mapStateToProps, mapDispatcToProps) (WeekRegister);
