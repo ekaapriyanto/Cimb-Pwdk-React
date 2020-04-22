@@ -41,7 +41,7 @@ export const registerHandler = (userDataRegister) => {
                         .then((res) => {
                             swal("Akun anda telah terdaftar");
                             dispatc({
-                                type: "ON_LOGIN_SUCCES",
+                                type: "ON_LOGIN_SUCCESS",
                                 payload: res.data
                             })
                             // this.setState({isLoading: false});
