@@ -71,6 +71,20 @@
       "role": "admin",
       "fullName": "mantap betul",
       "id": 10
+    },
+    {
+      "username": "Tango",
+      "password": "ot",
+      "role": "admin",
+      "fullName": "wafer renyah",
+      "id": 11
+    },
+    {
+      "username": "kouru",
+      "password": "1111",
+      "role": "admin",
+      "fullName": "Kouru senpai",
+      "id": 12
     }
   ]
 }

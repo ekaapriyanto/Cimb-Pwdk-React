@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import Cookie from "universal-cookie"
+import {connect} from "react-redux"
 
 import logo from './logo.svg';
 import LogoBrand from './views/image/LogoBrand.png';
@@ -28,6 +29,8 @@ import WeekRegister from './views/Weekend/WeekRegister';
 import WeekProfil from './views/Weekend/WeekProfile';
 import TodoRedux from './views/screen/TodoRedux';
 import { render } from '@testing-library/react';
+
+import {userKeepLogin} from "./redux/action"
 
 const cookieObject = new Cookie();
 
@@ -82,6 +85,16 @@ class App extends React.Component {
       return <ProductCard productData={val} />
     })
   }
+
+
+  componentDidMount(){
+    let cookiesResult = cookieObject.get("authData")
+    console.log(cookiesResult)
+    if (cookiesResult){
+      this.props.userKeepLogin(cookiesResult)
+    }
+  }
+
   render(){
     return (
       // <div className="App">
@@ -109,7 +122,7 @@ class App extends React.Component {
           <Route exact path="/" component={WeekHome} />
           <Route exact path="/login" component={WeekLogin} />
           <Route exact path="/register" component={WeekRegister} />
-          <Route exact path="/profile/:username" component={WeekProfil} />
+          <Route exact path="/profile/:id" component={WeekProfil} />
           <Route exact path="/todoredux" component={TodoRedux} />
           <Route path="*" component={PageNotFound}/>
         </Switch>
@@ -117,4 +130,12 @@ class App extends React.Component {
     )
   }
 }
-  export default withRouter(App);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+const mapDispatchToProps = {
+  userKeepLogin,
+}
+  export default connect(mapStateToProps, mapDispatchToProps) (withRouter(App));

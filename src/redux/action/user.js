@@ -33,7 +33,7 @@ export const registerHandler = (userDataRegister) => {
         })
         .then((res) => {
             if (username == 0 || password == 0 || repassword == 0 || role == 0 || fullName == 0){
-                swal("Data anda tidak lengkap!")
+                swal("Data tidak lengkap, silahkan isi kembali")
             } else {
                 if (password == repassword) {
                     if (res.data.length == 0) {
@@ -68,14 +68,14 @@ export const registerHandler = (userDataRegister) => {
 
 export const loginHandler = (userData) => {
     return (dispatc) => {
-        const {username, password} = userData
+        const { username, password } = userData
         Axios.get(`${API_URL}/user`, {
             params: {
                 username,
                 password,
             }
         })
-        .then(res => {
+        .then((res) => {
             if (res.data.length > 0){
                 dispatc({
                     type: "ON_LOGIN_SUCCESS",
@@ -93,3 +93,43 @@ export const loginHandler = (userData) => {
         });
     };
 };
+
+export const userKeepLogin = (userData) => {
+    return dispatc => {
+        Axios.get(`${API_URL}/user`,{
+            params: {
+                id: userData.id
+            }
+        })
+        .then(res => {
+            console.log(res)
+            if (res.data.length > 0){
+                dispatc({
+                    type: "ON_LOGIN_SUCCESS",
+                    payload: res.data[0],
+                })
+            } else {
+                dispatc({
+                    type: "ON_LOGIN_FAIL",
+                    payload: "*Username atau Password salah!"
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+}
+export const logoutHandler = () =>{
+    return(dispatch)=>{
+        dispatch({
+            type:"ON_LOGOUT_SUCCESS",
+            payload: {
+                id: 0,
+                username: "",
+                fullName: "",
+                role: "",
+            }
+        })
+    }
+}

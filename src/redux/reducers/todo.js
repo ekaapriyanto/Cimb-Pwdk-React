@@ -1,5 +1,5 @@
 const init_state = {
-    todoInput: "Hello Cantik",
+    todoInput: "Welcome",
     todoList: [],
 }
 

@@ -5,6 +5,10 @@ import {API_URL} from "../../constants/API"
 import {connect} from "react-redux";
 import {onClickLogin, loginHandler} from "../../redux/action"
 import swal from "sweetalert"
+import Cookie from "universal-cookie"
+import { Link } from "react-router-dom";
+
+const cookieObject = new Cookie();
 
 class WeekLogin extends React.Component {
 
@@ -47,36 +51,47 @@ class WeekLogin extends React.Component {
         //     console.log(err)
         // })
     }
+
+    componentDidUpdate(){
+        if (this.props.user.id) {
+          cookieObject.set("authData", JSON.stringify(this.props.user));
+        }
+    }
+
+
     render(){
         const {username, password, isLoggedIn} = this.state
-        if (!isLoggedIn) {
+        if (!this.props.user.id) {
+
             return(
                 <div className="container d-flex justify-content-center">
                     <div className="card p-5" style={{width: "400px"}}>
-                    <h4>Login</h4>
-                    <p>username: {this.props.user.username}</p>
-                    <input
-                        className="form-control mt-2"
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => this.inputHandler(e, "username")}
-                    />
-                    <input
-                        className="form-control mt-2"
-                        type="text"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => this.inputHandler(e, "password")}
-                    />
-                    <input
-                        className="btn btn-primary mt-3"
-                        type="button"
-                        value="Login"
-                        onClick={this.getDataLogin}
-                    />
-                    <p className="text-warning">{this.props.user.errMsg}</p>
-                </div>
+                        <h4>Login</h4>
+                        <p>username: {this.props.user.username}</p>
+                        <input
+                            className="form-control mt-2"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => this.inputHandler(e, "username")}
+                        />
+                        <input
+                            className="form-control mt-2"
+                            type="text"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => this.inputHandler(e, "password")}
+                        />
+                        <input
+                            className="btn btn-primary mt-3"
+                            type="button"
+                            value="Login"
+                            onClick={this.getDataLogin}
+                        />
+                        <p className="text-warning">{this.props.user.errMsg}</p>
+                        <p>belum punya akun daftar
+                        <Link to="/register" type="text"> Disini!</Link></p>
+                    </div>
                 </div>
             )
         }
